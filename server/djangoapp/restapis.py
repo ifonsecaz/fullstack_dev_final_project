@@ -6,7 +6,7 @@ from .llaves import password
 from ibm_watson import NaturalLanguageUnderstandingV1
 from ibm_cloud_sdk_core.authenticators import IAMAuthenticator
 from ibm_watson.natural_language_understanding_v1 \
-    import Features, SentimentOptions
+    import Features, SentimentOptions as Sentiment
 
 load_dotenv()
 
@@ -66,8 +66,7 @@ def analyze_review_sentiments(text):
         """
         x = natural_language_understanding.analyze(text=text,
                                                    features=Features(
-                                                       sentiment=
-                                                       SentimentOptions()
+                                                       sentiment=Sentiment()
                                                        )).get_result()
         # return response.json()
         print("response")
