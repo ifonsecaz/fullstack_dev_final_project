@@ -2,10 +2,9 @@ from ibm_watson import NaturalLanguageUnderstandingV1
 from ibm_cloud_sdk_core.authenticators import IAMAuthenticator
 from ibm_watson.natural_language_understanding_v1 import Features, SentimentOptions
 
-user=""
-password=""
-sentiment_analyzer_url='https://api.us-south.natural-language-understanding.' \
-'watson.cloud.ibm.com/instances/896baf6f-5953-47c6-b0ea-8c1fffd824a1/'
+user = ""
+password = ""
+sentiment_analyzer_url = ""
 
 
 authenticator = IAMAuthenticator(password)

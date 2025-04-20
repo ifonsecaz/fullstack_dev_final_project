@@ -66,7 +66,8 @@ def analyze_review_sentiments(text):
         """
         x = natural_language_understanding.analyze(text=text,
                                                    features=Features(
-                                                       sentiment=SentimentOptions()
+                                                       sentiment=
+                                                       SentimentOptions()
                                                        )).get_result()
         # return response.json()
         print("response")
