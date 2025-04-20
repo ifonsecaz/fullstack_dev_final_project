@@ -13,7 +13,6 @@ const Login = ({ onClose }) => {
 
   const login = async (e) => {
     e.preventDefault();
-
     const res = await fetch(login_url, {
         method: "POST",
         headers: {
