@@ -16,8 +16,8 @@ class CarMake(models.Model):
 
 class CarModel(models.Model):
     # Many-to-One relationship
-    car_make = models.ForeignKey(CarMake, on_delete= models.CASCADE)
-    dealer_id = models.IntegerField(default= 0)
+    car_make = models.ForeignKey(CarMake, on_delete=models.CASCADE)
+    dealer_id = models.IntegerField(default=0)
     name = models.CharField(max_length=100)
     CAR_TYPES = [
         ('SEDAN', 'Sedan'),
