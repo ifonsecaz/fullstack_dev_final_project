@@ -43,8 +43,9 @@ const Dealer = () => {
     const retobj = await res.json();
     
     if(retobj.status === 200) {
-      if(retobj.reviews.length > 0){
-        setReviews(retobj.reviews)
+      console.log("Reviews fetched successfully")
+      if(retobj.dealer.length > 0){
+        setReviews(retobj.dealer)
       } else {
         setUnreviewed(true);
       }
