@@ -2,8 +2,7 @@
 import requests
 import os
 from dotenv import load_dotenv
-from requests.auth import HTTPBasicAuth
-from .llaves import user, password
+from .llaves import password
 from ibm_watson import NaturalLanguageUnderstandingV1
 from ibm_cloud_sdk_core.authenticators import IAMAuthenticator
 from ibm_watson.natural_language_understanding_v1 \
@@ -28,6 +27,7 @@ natural_language_understanding = NaturalLanguageUnderstandingV1(
 
 natural_language_understanding.set_service_url(sentiment_analyzer_url)
 
+
 # def get_request(endpoint, **kwargs):
 def get_request(endpoint, **kwargs):
     params = ""
@@ -47,11 +47,11 @@ def get_request(endpoint, **kwargs):
         print("Network exception occurred")
 
 
+# modificar en views tambien
 def analyze_review_sentiments(text):
     # request_url = sentiment_analyzer_url+"analyze/"+text
-    # modificar en views tambien
-    request_url = sentiment_analyzer_url # added
-    myobj = {'text': text, 'features': {'sentiment':{}}} # added
+    request_url = sentiment_analyzer_url  # added
+    myobj = {'text': text, 'features': {'sentiment': {}}}  # added
     try:
         # Call get method of requests library with URL and parameters
         print("peticion")
@@ -62,11 +62,12 @@ def analyze_review_sentiments(text):
         x = requests.post(request_url,
                           auth=HTTPBasicAuth(user, password),
                           json = myobj,
-                          headers = {"Content-Type": "application/json"}) # added
+                          headers = {"Content-Type": "application/json"})
         """
         x = natural_language_understanding.analyze(text=text,
                                                    features=Features(
-                                                       sentiment=SentimentOptions())).get_result()
+                                                       sentiment=SentimentOptions()
+                                                       )).get_result()
         # return response.json()
         print("response")
         print(x)

@@ -120,7 +120,8 @@ def get_dealer_reviews(request, dealer_id):
         for review_detail in reviews:
             response = analyze_review_sentiments(review_detail['review'])
             # review_detail['sentiment'] = response['sentiment']
-            review_detail['sentiment'] = response['sentiment']['document']['label']
+            x = response['sentiment']
+            review_detail['sentiment'] = x['document']['label']
         print(reviews)
         return JsonResponse({"status": 200, "dealer": reviews})
     else:
@@ -143,7 +144,7 @@ def add_review(request):
     if (request.user.is_anonymous is False):
         data = json.loads(request.body)
         try:
-            response = post_review(data)
+            post_review(data)
             return JsonResponse({"status": 200})
         except Exception:
             return JsonResponse({"status": 401, "message":
