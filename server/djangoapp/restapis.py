@@ -2,6 +2,12 @@
 import requests
 import os
 from dotenv import load_dotenv
+from requests.auth import HTTPBasicAuth
+from .llaves import user, password
+from ibm_watson import NaturalLanguageUnderstandingV1
+from ibm_cloud_sdk_core.authenticators import IAMAuthenticator
+from ibm_watson.natural_language_understanding_v1 \
+    import Features, SentimentOptions
 
 load_dotenv()
 
@@ -14,6 +20,13 @@ searchcars_url = os.getenv(
     'searchcars_url',
     default="http://localhost:3050/")
 
+authenticator = IAMAuthenticator(password)
+natural_language_understanding = NaturalLanguageUnderstandingV1(
+    version='2022-04-07',
+    authenticator=authenticator
+)
+
+natural_language_understanding.set_service_url(sentiment_analyzer_url)
 
 # def get_request(endpoint, **kwargs):
 def get_request(endpoint, **kwargs):
@@ -35,13 +48,30 @@ def get_request(endpoint, **kwargs):
 
 
 def analyze_review_sentiments(text):
-    request_url = sentiment_analyzer_url+"analyze/"+text
+    # request_url = sentiment_analyzer_url+"analyze/"+text
+    # modificar en views tambien
+    request_url = sentiment_analyzer_url # added
+    myobj = {'text': text, 'features': {'sentiment':{}}} # added
     try:
         # Call get method of requests library with URL and parameters
         print("peticion")
         print(request_url)
-        response = requests.get(request_url)
-        return response.json()
+        print(myobj)
+        # response = requests.get(request_url)
+        """
+        x = requests.post(request_url,
+                          auth=HTTPBasicAuth(user, password),
+                          json = myobj,
+                          headers = {"Content-Type": "application/json"}) # added
+        """
+        x = natural_language_understanding.analyze(text=text,
+                                                   features=Features(
+                                                       sentiment=SentimentOptions())).get_result()
+        # return response.json()
+        print("response")
+        print(x)
+        # return x.json()
+        return x
     except Exception as err:
         print(f"Unexpected {err=}, {type(err)=}")
         print("Network exception occurred")

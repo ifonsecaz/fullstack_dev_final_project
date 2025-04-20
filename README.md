@@ -40,7 +40,7 @@ docker-compose up
 
 desde /server/carsInventory
 
-docker build . -t nodeapp
+docker build . -t nodeapp2
 
 docker-compose up
 
