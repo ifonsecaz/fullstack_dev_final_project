@@ -59,7 +59,8 @@ table{
     margin: 10px; /* Optional margin for spacing */
     font-style: italic;
     color: gray;
-    font-size: small;
+    font-size: medium;
+    text-align: center;
 }
 
 .review {
@@ -84,5 +85,5 @@ table{
 
 .review_icon:hover {
   transform: scale(1.1);
-  border: solid lightgray;
+  border: solid rgb(145, 145, 145);
 }

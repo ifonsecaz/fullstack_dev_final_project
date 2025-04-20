@@ -4,8 +4,12 @@ import "../assets/style.css";
 import Header from '../Header/Header';
 import review_icon from "../assets/reviewicon.png"
 
+
+
 const Dealers = () => {
   const [dealersList, setDealersList] = useState([]);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [originalDealers, setOriginalDealers] = useState([]);
   // let [state, setState] = useState("")
   let [states, setStates] = useState([])
 
@@ -26,6 +30,22 @@ const Dealers = () => {
     }
   }
 
+  const handleInputChange = (event) => {
+    const query = event.target.value;
+
+    setSearchQuery(query);
+    const filtered = originalDealers.filter(dealer =>
+      dealer.state.toLowerCase().includes(query.toLowerCase())
+    );
+    setDealersList(filtered);
+    };
+  
+  const handleLostFocus = () => {
+    if (!searchQuery) {
+      setDealersList(originalDealers);
+    }
+    }
+
   const get_dealers = async ()=>{
     const res = await fetch(dealer_url, {
       method: "GET"
@@ -37,7 +57,7 @@ const Dealers = () => {
       all_dealers.forEach((dealer)=>{
         states.push(dealer.state)
       });
-
+      setOriginalDealers(all_dealers);
       setStates(Array.from(new Set(states)))
       setDealersList(all_dealers)
     }
@@ -60,6 +80,7 @@ return(
       <th>Address</th>
       <th>Zip</th>
       <th>
+      <input type="text" placeholder="Search states..." onChange={handleInputChange} onBlur={handleLostFocus} value={searchQuery}/>
       <select name="state" id="state" onChange={(e) => filterDealers(e.target.value)}>
       <option value="" selected disabled hidden>State</option>
       <option value="All">All States</option>
