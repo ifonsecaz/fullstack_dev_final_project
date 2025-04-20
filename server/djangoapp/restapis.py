@@ -69,7 +69,7 @@ def analyze_review_sentiments(text):
                                                        sentiment=Sentiment()
                                                        )).get_result()
         # return response.json()
-        print("response")
+        print("response2")
         print(x)
         # return x.json()
         return x
